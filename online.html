@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store - Vegetables</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="header">
+            <div class="top-bar">
+                <h1 class="logo"><a href="index.html">Vegetables</a></h1>
+                <div class="top-actions">
+                    <img src="images/btn_facebook.png" alt="Facebook" class="social-img">
+                    <img src="images/btn_instagram.png" alt="Instagram" class="social-img">
+                    <a href="login.html"><button class="btn">LOGIN</button></a>
+                    <a href="join.html"><button class="btn">JOIN</button></a>
+                    
+                    <button class="btn cart-btn">🛒 Cart (<span id="cart-count">0</span>)</button>
+                </div>
+            </div>
+            <nav class="nav-bar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="index.html#vegetables">Vegetables</a></li>
+                    <li><a href="online.html">Online</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+  
+        <div class="main-banner">
+            <img src="images/img_main_pumpkin.png" alt="Vegetables Main Banner">
+        </div>
+
+        <main class="content-wrapper">
+            <section class="card left-card" style="flex: 1;">
+                <h2 class="section-title">Online Store</h2>
+                <div class="card-content">
+                    <p class="contact-desc" style="font-size: 14px; line-height: 1.8;">
+                        Order your fresh organic vegetables online! Click on any item below to view details and add to your cart.
+                    </p>
+                    <hr class="divider">
+                    <div class="product-grid">
+                        <div class="product-item interactive-item" onclick="openModal('Fresh Carrot', '$2.50 / kg', 'images/img_vegetables_carrot.png', 'Rich in Vitamin A, Beta-Carotene, and essential nutrients for healthy daily meals.')">
+                            <img src="images/img_vegetables_carrot.png" alt="Carrot">
+                            <div class="info-box">
+                                <h3>Fresh Carrot</h3>
+                                <p>$2.50 / kg</p>
+                            </div>
+                        </div>
+                        <div class="product-item interactive-item" onclick="openModal('Sweet Corn', '$3.00 / kg', 'images/img_vegetables_corn.png', 'Freshly harvested sweet corn packed with dietary fiber and natural sweetness.')">
+                            <img src="images/img_vegetables_corn.png" alt="Corn">
+                            <div class="info-box">
+                                <h3>Sweet Corn</h3>
+                                <p>$3.00 / kg</p>
+                            </div>
+                        </div>
+                        <div class="product-item interactive-item" onclick="openModal('Organic Pepper', '$4.00 / kg', 'images/img_vegetables_pepper.png', 'Delicious, crisp bell pepper rich in Vitamin C and antioxidants.')">
+                            <img src="images/img_vegetables_pepper.png" alt="Pepper">
+                            <div class="info-box">
+                                <h3>Organic Pepper</h3>
+                                <p>$4.00 / kg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+  
+        <footer class="footer">
+            Copyrights 2017 Vegetables | Design by Vegetables
+        </footer>
+    </div>
+
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="Product Image">
+                <div class="modal-info">
+                    <h2 id="modal-title" style="color: #778A50; margin-bottom: 8px;"></h2>
+                    <p id="modal-price" style="font-weight: bold; color: #7D7D7D; margin-bottom: 12px;"></p>
+                    <p id="modal-desc" style="font-size: 13px; color: #7D7D7D; line-height: 1.6; margin-bottom: 20px;"></p>
+                    
+                    <div class="quantity-control">
+                        <button onclick="changeQty(-1)">-</button>
+                        <span id="qty-val">1</span>
+                        <button onclick="changeQty(1)">+</button>
+                    </div>
+
+                    <button class="add-cart-btn" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQty = 1;
+        let totalCartItems = 0;
+
+        function openModal(title, price, imgSrc, desc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-desc').innerText = desc;
+            
+            currentQty = 1;
+            document.getElementById('qty-val').innerText = currentQty;
+            
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        function changeQty(amount) {
+            if (currentQty + amount >= 1) {
+                currentQty += amount;
+                document.getElementById('qty-val').innerText = currentQty;
+            }
+        }
+
+        function addToCart() {
+            totalCartItems += currentQty;
+            document.getElementById('cart-count').innerText = totalCartItems;
+            closeModal();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('product-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
